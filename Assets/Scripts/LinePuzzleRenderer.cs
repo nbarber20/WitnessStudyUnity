@@ -23,6 +23,8 @@ public class LinePuzzleRenderer : MonoBehaviour
     [SerializeField]
     private GameObject m_linePrefab = null;
     [SerializeField]
+    private GameObject m_circlePrefab = null;
+    [SerializeField]
     private GameObject m_elementPrefab = null;
     [SerializeField]
     private Image m_bgImage = null;
@@ -36,6 +38,7 @@ public class LinePuzzleRenderer : MonoBehaviour
     private Vector2 m_boundsLow = Vector2.zero;
     private Vector2 m_boundsHigh = Vector2.one;
     private RectTransform m_dynamicLine = null;
+    private RectTransform m_startCircle = null;
     private List<RectTransform> m_fgLines = new List<RectTransform>();
     private List<RectTransform> m_debugLines = new List<RectTransform>();
 
@@ -50,6 +53,16 @@ public class LinePuzzleRenderer : MonoBehaviour
         {
             DrawLine(line.Item1.pos, line.Item2.pos, m_lineBackground, m_bgLineColor);
         }
+
+        //Draw start circle BG
+        RectTransform circle = Instantiate(m_circlePrefab, m_lineBackground).GetComponent<RectTransform>();
+        circle.anchoredPosition = RemapVec(data.NodeData.GetStartNode().pos);
+        circle.GetComponent<Image>().color = m_bgLineColor;
+
+        //Init start circle FG
+        m_startCircle = Instantiate(m_circlePrefab, m_lineForeground).GetComponent<RectTransform>();
+        m_startCircle.anchoredPosition = RemapVec(data.NodeData.GetStartNode().pos);
+        m_startCircle.GetComponent<Image>().color = m_fgLineColor;
 
         //Init dynamic line
         m_dynamicLine = Instantiate(m_linePrefab, m_lineForeground).GetComponent<RectTransform>();
@@ -72,6 +85,10 @@ public class LinePuzzleRenderer : MonoBehaviour
         {
             m_dynamicLine.gameObject.SetActive(v);
         }
+        if (m_startCircle.gameObject.activeSelf != v)
+        {
+            m_startCircle.gameObject.SetActive(v);
+        }
     }
 
     public void MoveCursor(Vector2 corner, Vector2 to)
@@ -89,7 +106,7 @@ public class LinePuzzleRenderer : MonoBehaviour
         m_fgLines.Clear();
 
         //Draw line
-        for (int i = 0; i < nodeList.Count-1; ++i)
+        for (int i = 0; i < nodeList.Count - 1; ++i)
         {
             m_fgLines.Add(DrawLine(nodeList[i].pos, nodeList[i + 1].pos, m_lineForeground, m_fgLineColor));
         }

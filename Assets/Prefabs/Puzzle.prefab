@@ -319,7 +319,8 @@ MonoBehaviour:
   m_cornerTolerance: 0.2
   m_puzzleData:
     NodeData: {fileID: 0}
-    ElementData: {fileID: 0}
+    ElementData:
+      ElementList: []
 --- !u!114 &3135444515214358862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,6 +343,7 @@ MonoBehaviour:
   m_bgLineColor: {r: 0.1254902, g: 0.015686275, b: 0.627451, a: 1}
   m_fgLineColor: {r: 0.5686275, g: 0.6509804, b: 0.8352942, a: 1}
   m_linePrefab: {fileID: 857700296507536828, guid: 30e25445dd96c4f4d8800647c2f02a72, type: 3}
+  m_circlePrefab: {fileID: 857700296507536828, guid: e9566cb5bb1dbea45ac1d46c4e42e99c, type: 3}
   m_elementPrefab: {fileID: 857700296507536828, guid: 60c442e5e62c70f4bb1aff1adbcef0ce, type: 3}
   m_bgImage: {fileID: 3135444515383302552}
   m_elementParent: {fileID: 3135444516038433277}
